@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tahun 3A Bahasa Melayu • Unit 1: Keluarga Tersayang 词汇与词根闯关</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #FEF3C7 0%, #E0F2FE 50%, #FCE7F3 100%);
+      min-height: 100vh;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* 立体主面板 */
+    .panel-card {
+      background: rgba(255, 255, 255, 0.97);
+      border: 4px solid #0EA5E9;
+      box-shadow: 0 10px 0 #0284C7, 0 18px 28px rgba(2, 132, 199, 0.16);
+      border-radius: 28px;
+    }
+
+    /* 闪卡容器 */
+    .flashcard-box {
+      background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 4px solid #F59E0B;
+      box-shadow: 0 8px 0 #D97706;
+      border-radius: 24px;
+      transition: all 0.25s ease;
+    }
+
+    .flashcard-box.has-root {
+      background: linear-gradient(180deg, #F5F3FF 0%, #EDE9FE 100%);
+      border-color: #8B5CF6;
+      box-shadow: 0 8px 0 #6D28D9;
+    }
+
+    /* 3D 立体按钮 */
+    .btn-3d {
+      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      top: 0;
+    }
+    .btn-3d:active:not(:disabled) {
+      top: 4px;
+      box-shadow: 0 1px 0 currentColor !important;
+    }
+    .btn-3d:disabled {
+      opacity: 0.52;
+      cursor: not-allowed;
+      filter: grayscale(35%);
+    }
+
+    /* 测验选项按钮 */
+    .option-btn {
+      background: #FFFFFF;
+      border: 3px solid #7DD3FC;
+      box-shadow: 0 5px 0 #38BDF8;
+      color: #0C4A6E;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: #F0F9FF;
+      border-color: #0284C7;
+      transform: translateY(-2px);
+    }
+
+    /* 动画效果 */
+    @keyframes popIn {
+      0% { transform: scale(0.84); opacity: 0; }
+      75% { transform: scale(1.04); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.28s ease-out forwards;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px); }
+      40%, 80% { transform: translateX(7px); }
+    }
+    .animate-shake {
+      animation: shake 0.38s ease-in-out;
+    }
+
+    /* 填空槽 */
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 125px;
+      padding: 2px 12px;
+      margin: 0 5px;
+      border-bottom: 4px dashed #F59E0B;
+      background-color: #FEF3C7;
+      border-radius: 10px;
+      color: #B45309;
+      font-weight: 800;
+      transition: all 0.25s ease;
+    }
+    .blank-slot.filled {
+      border-bottom: 4px solid #10B981;
+      background-color: #D1FAE5;
+      color: #065F46;
+      transform: scale(1.04);
+    }
+
+    /* 难词华语括弧注释 */
+    .hint-cn {
+      color: #4338CA;
+      font-size: 0.82em;
+      font-weight: 700;
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 2px;
+      display: inline-block;
+    }
+
+    /* 倒计时最后 6 秒红框紧张闪烁 */
+    @keyframes urgentBorder {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); border-color: #EF4444; }
+      50% { box-shadow: 0 0 0 11px rgba(239, 68, 68, 0); border-color: #B91C1C; }
+    }
+    .tension-border {
+      animation: urgentBorder 0.6s infinite;
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-5 flex flex-col items-center">
+
+  <!-- ==================== 顶部工具栏 ==================== -->
+  <header class="w-full max-w-7xl flex flex-wrap items-center justify-between gap-2 mb-4 px-1">
+    <div class="flex items-center gap-2.5 bg-white/95 px-4 py-2 rounded-full shadow-md border-2 border-sky-400">
+      <span class="text-2xl">👨‍👩‍👧‍👦</span>
+      <div>
+        <h1 class="text-sm sm:text-lg font-black text-sky-950 leading-tight">Tahun 3A Bahasa Melayu • Unit 1: Keluarga Tersayang</h1>
+        <p class="text-xs text-sky-700 font-bold">闪卡精读 (5秒/张) ➔ 读题等待 (5秒) ➔ 填空 + 华语 + Kata Dasar (20秒)</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- 背景音乐开关 -->
+      <button id="bgmBtn" onclick="toggleBGM()" class="btn-3d bg-amber-100 border-2 border-amber-400 shadow-[0_4px_0_#D97706] text-amber-900 font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm flex items-center gap-1.5">
+        <span id="bgmIcon">🎵</span>
+        <span id="bgmText">背景音乐开</span>
+      </button>
+
+      <!-- 返回关卡选择 -->
+      <button id="homeBtn" onclick="returnToMenu()" class="hidden btn-3d bg-rose-100 border-2 border-rose-400 shadow-[0_4px_0_#E11D48] text-rose-800 font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm">
+        🏠 更换关卡
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== 1. 关卡选择主页 ==================== -->
+  <section id="menuScreen" class="w-full max-w-4xl panel-card p-6 sm:p-9 text-center my-auto">
+    <div class="text-5xl sm:text-6xl mb-2">🏡🐱📖🎹🌱</div>
+    <span class="inline-block bg-amber-100 text-amber-900 border border-amber-300 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black mb-2">
+      三年级马来文 Kosa Kata Tahun 3A • Tema 1: Keluarga Bahagia (ms 01–05)
+    </span>
+    <h2 class="text-2xl sm:text-4xl font-black text-sky-950 mb-3">Unit 1: Keluarga Tersayang 词汇与词根大闯关</h2>
+    <p class="text-xs sm:text-sm font-bold text-gray-600 max-w-2xl mx-auto mb-6 leading-relaxed">
+      🎮 <strong>游戏规则：</strong>先在左边认真看完全部 <strong>Flashcard（每张至少 5 秒）</strong>，记忆小妙招会帮你轻松记住华语意思！<br/>
+      全部看完后，右边测验自动解锁：每题先仔细读题 <strong>5 秒</strong>，然后在 <strong>20 秒内</strong>完成「马来文填空 ➔ 华语意思 ➔ 找出 Kata Dasar 词根」！
+    </p>
+
+    <!-- 5 个分段与总复习关卡按钮 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 max-w-3xl mx-auto text-left">
+      <button onclick="startStage('set1')" class="btn-3d bg-gradient-to-b from-amber-300 to-amber-400 border-2 border-amber-500 shadow-[0_5px_0_#D97706] text-amber-950 p-4 rounded-2xl">
+        <div class="text-xs font-black bg-white/80 inline-block px-2 py-0.5 rounded-md mb-1">第 1 关 (第 1–10 题)</div>
+        <div class="text-base font-black">家庭成员与书店 (ms 01–02)</div>
+        <div class="text-xs font-bold opacity-85 mt-0.5">keluarga, tersayang, anak sulung, menjaga, memilih...</div>
+      </button>
+
+      <button onclick="startStage('set2')" class="btn-3d bg-gradient-to-b from-sky-300 to-sky-400 border-2 border-sky-500 shadow-[0_5px_0_#0284C7] text-sky-950 p-4 rounded-2xl">
+        <div class="text-xs font-black bg-white/80 inline-block px-2 py-0.5 rounded-md mb-1">第 2 关 (第 11–20 题)</div>
+        <div class="text-base font-black">周末活动与才艺 (ms 02–04)</div>
+        <div class="text-xs font-bold opacity-85 mt-0.5">membacakan, hujung minggu, anak emas, ambil berat...</div>
+      </button>
+
+      <button onclick="startStage('set3')" class="btn-3d bg-gradient-to-b from-emerald-300 to-emerald-400 border-2 border-emerald-500 shadow-[0_5px_0_#059669] text-emerald-950 p-4 rounded-2xl">
+        <div class="text-xs font-black bg-white/80 inline-block px-2 py-0.5 rounded-md mb-1">第 3 关 (第 21–30 题)</div>
+        <div class="text-base font-black">认真学习与园艺 (ms 04–05)</div>
+        <div class="text-xs font-bold opacity-85 mt-0.5">bersungguh-sungguh, bangga, berkebun, berwarna-warni...</div>
+      </button>
+
+      <button onclick="startStage('root_focus')" class="btn-3d bg-gradient-to-b from-purple-500 to-indigo-600 border-2 border-indigo-800 shadow-[0_5px_0_#312E81] text-white p-4 rounded-2xl">
+        <div class="text-xs font-black bg-black/25 inline-block px-2 py-0.5 rounded-md mb-1">词根特训 (13 题)</div>
+        <div class="text-base font-black">🌱 Kata Dasar 词根专项挑战</div>
+        <div class="text-xs font-bold text-purple-100 mt-0.5">专练所有带词缀/重叠的字（tersayang, menjaga, membacakan...）</div>
+      </button>
+
+      <button onclick="startStage('all30')" class="sm:col-span-2 btn-3d bg-gradient-to-r from-rose-500 to-orange-500 border-2 border-rose-700 shadow-[0_5px_0_#9F1239] text-white p-4 rounded-2xl">
+        <div class="text-xs font-black bg-black/25 inline-block px-2 py-0.5 rounded-md mb-1">终极总挑战 (全部 30 题)</div>
+        <div class="text-base sm:text-lg font-black">🏆 Unit 1: Keluarga Tersayang 全套 30 词大满贯</div>
+        <div class="text-xs font-bold text-rose-100 mt-0.5">完整复习第 1 至 30 题全部生词、成语与 Kata Dasar 词根</div>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== 2. 左右双栏分屏工作区 (左边 Flashcard + 右边 Quiz) ==================== -->
+  <main id="gameWorkspace" class="hidden w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+    <!-- 左栏 (5列)：Flashcard 记忆闪卡区 -->
+    <section class="lg:col-span-5 panel-card p-5 sm:p-6 flex flex-col justify-between border-amber-500 shadow-[0_10px_0_#D97706]">
+      <div>
+        <!-- 左栏顶栏 -->
+        <div class="flex items-center justify-between gap-2 mb-3 pb-3 border-b-2 border-amber-200">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🗂️</span>
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-amber-950">左边：生词记忆闪卡 (Flashcard)</h2>
+              <p class="text-xs font-bold text-amber-700">每张至少看满 5 秒，全部看完解锁右边测验</p>
+            </div>
+          </div>
+          <span id="fcCounterBadge" class="bg-amber-200 text-amber-950 font-black px-3 py-1 rounded-full text-xs sm:text-sm">
+            1 / 10
+          </span>
+        </div>
+
+        <!-- 闪卡学习进度条 -->
+        <div class="w-full h-3 bg-amber-100 rounded-full overflow-hidden border border-amber-300 mb-4">
+          <div id="fcProgressBar" class="h-full bg-amber-500 transition-all duration-300" style="width: 10%;"></div>
+        </div>
+
+        <!-- 闪卡主体内容 -->
+        <div id="flashcardCard" class="flashcard-box p-4 sm:p-5 text-center">
+          <!-- 编号与词性 -->
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span id="fcNumTag" class="bg-amber-500 text-white text-xs font-black px-2.5 py-1 rounded-lg">#1</span>
+            <span id="fcPosTag" class="bg-white/90 border border-amber-300 text-amber-900 text-xs font-extrabold px-2.5 py-1 rounded-lg">Kata Nama 名词</span>
+          </div>
+
+          <!-- 马来文生词 + 音节拆分 -->
+          <div id="fcMalayWord" class="text-2xl sm:text-3xl font-black text-sky-950 mt-1">
+            keluarga
+          </div>
+          <div id="fcSyllable" class="text-xs sm:text-sm font-bold text-sky-700 mb-2">
+            音节拆分：(ke/luar/ga)
+          </div>
+
+          <!-- 华语意思 (Maksud) -->
+          <div id="fcChineseMeaning" class="inline-block bg-rose-100 border-2 border-rose-300 text-rose-800 text-lg sm:text-xl font-black px-4 py-1 rounded-2xl mb-3">
+            家庭
+          </div>
+
+          <!-- Kata Dasar 词根 & 同义词/反义词标签栏 -->
+          <div class="grid grid-cols-1 gap-1.5 mb-3 text-left">
+            <div id="fcRootBox" class="bg-purple-100 border border-purple-300 rounded-xl px-3 py-1.5 text-xs font-extrabold text-purple-900 flex items-center justify-between">
+              <span>🌱 Kata Dasar (词根)：</span>
+              <span id="fcRootValue" class="font-black text-purple-700">无词缀 (Kata Tunggal)</span>
+            </div>
+            <div id="fcRelBox" class="hidden bg-teal-50 border border-teal-300 rounded-xl px-3 py-1.5 text-xs font-extrabold text-teal-900">
+            </div>
+          </div>
+
+          <!-- 记忆小妙招 (Memory Aid) -->
+          <div class="bg-amber-100/90 border-2 border-amber-300 rounded-2xl p-3 text-left mb-3">
+            <div class="text-xs font-black text-amber-900 mb-0.5 flex items-center gap-1">
+              <span>💡</span>
+              <span>记忆小妙招（帮你记住华语意思）：</span>
+            </div>
+            <p id="fcMemoryTip" class="text-xs sm:text-sm font-bold text-amber-950 leading-relaxed">
+              “ke-luar-ga” 谐音联想“快乐一家”，就是【家庭】！
+            </p>
+          </div>
+
+          <!-- 课本例句 (Ayat) -->
+          <div class="bg-white/95 border-2 border-sky-200 rounded-2xl p-3 text-left">
+            <div class="text-xs font-black text-sky-700 mb-1">📖 课本例句 (Ayat)：</div>
+            <p id="fcSentence" class="text-sm sm:text-base font-bold text-gray-800 leading-relaxed">
+              Anggota <span class="text-sky-700 underline font-black">keluarga</span> saya terdiri daripada (由……组成) empat orang.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 闪卡底部 5 秒强制计时翻页按钮 -->
+      <div class="mt-4 pt-3 border-t-2 border-amber-100">
+        <div class="flex items-center justify-between gap-3">
+          <button id="fcPrevBtn" onclick="prevFlashcard()" class="btn-3d bg-gray-200 border-2 border-gray-400 shadow-[0_4px_0_#9CA3AF] text-gray-800 font-extrabold px-4 py-3 rounded-2xl text-sm">
+            ⬅️ 上一张
+          </button>
+
+          <button id="fcNextBtn" onclick="nextFlashcard()" disabled class="flex-1 btn-3d bg-emerald-500 border-2 border-emerald-700 shadow-[0_4px_0_#047857] text-white font-black px-4 py-3 rounded-2xl text-sm sm:text-base">
+            <span id="fcNextLabel">⏳ 认真记忆中 (5s)</span>
+          </button>
+        </div>
+
+        <div id="fcUnlockedHint" class="hidden mt-2.5 bg-emerald-100 border-2 border-emerald-400 text-emerald-900 rounded-2xl p-2 text-center text-xs font-black animate-pop">
+          🎉 所有闪卡已看完，右边测验已解锁！你也可以随时在左边翻看复习。
+        </div>
+      </div>
+    </section>
+
+    <!-- 右栏 (7列)：Quiz 闯关测验区 -->
+    <section id="quizPanel" class="lg:col-span-7 panel-card p-5 sm:p-7 relative flex flex-col justify-between overflow-hidden">
+
+      <!-- 严格防跳过锁定遮罩层 -->
+      <div id="quizLockCover" class="absolute inset-0 bg-slate-900/82 backdrop-blur-xs z-20 flex flex-col items-center justify-center p-6 text-center text-white">
+        <div class="bg-white/15 border-2 border-white/30 rounded-3xl p-6 sm:p-8 max-w-md backdrop-blur-md">
+          <div class="text-6xl mb-3 animate-bounce">🔒</div>
+          <h3 class="text-2xl font-black text-amber-300 mb-2">测验区暂未解锁！</h3>
+          <p class="text-sm sm:text-base font-bold text-sky-100 leading-relaxed mb-4">
+            不能跳过左边的 Flashcard 直接作答哦！<br/>
+            请先在左边认真看完本关所有闪卡（每张至少 5 秒），学完后右侧测验会自动打开。
+          </p>
+          <div class="bg-black/45 rounded-2xl px-4 py-2.5 text-sm font-black text-emerald-300 border border-emerald-400/40">
+            闪卡学习进度：<span id="lockProgressText">0 / 10</span> 张已完成
+          </div>
+        </div>
+      </div>
+
+      <!-- 测验上部内容 -->
+      <div>
+        <!-- 题号、计时条、实时得分 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b-2 border-sky-100">
+          <div class="flex items-center gap-2 bg-sky-100 px-3.5 py-1.5 rounded-2xl border border-sky-300">
+            <span class="text-base">✏️</span>
+            <span class="font-black text-sky-950 text-xs sm:text-sm">
+              第 <span id="qNumDisplay" class="text-sky-600 text-base">1</span> / <span id="qTotalDisplay">10</span> 题
+            </span>
+          </div>
+
+          <!-- 读题 5 秒 / 作答 20 秒双阶段计时器 -->
+          <div class="flex-1 min-w-[180px] max-w-xs mx-auto">
+            <div class="flex justify-between items-center text-xs font-black mb-1">
+              <span id="timerPhaseLabel" class="text-amber-600">👀 先仔细读题...</span>
+              <span id="timerValueText" class="text-sm sm:text-base text-amber-700 font-black">5s</span>
+            </div>
+            <div class="w-full h-3.5 bg-gray-200 rounded-full overflow-hidden border border-gray-300 p-0.5">
+              <div id="timerProgressBar" class="h-full bg-amber-400 rounded-full transition-all duration-200" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- 实时对错统计 -->
+          <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-2xl border border-slate-300 text-xs sm:text-sm font-black">
+            <span class="text-emerald-600">✅ <span id="scoreRight">0</span></span>
+            <span class="text-gray-300">|</span>
+            <span class="text-rose-600">❌ <span id="scoreWrong">0</span></span>
+          </div>
+        </div>
+
+        <!-- 步骤指示胶囊条（Step 1 填空 -> Step 2 华语 -> Step 3 Kata Dasar） -->
+        <div class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-4">
+          <div id="pillStep1" class="px-3 py-1 rounded-full text-xs font-black bg-sky-600 text-white shadow-sm">
+            1️⃣ 选马来文填空
+          </div>
+          <span class="text-gray-400 font-black">➔</span>
+          <div id="pillStep2" class="px-3 py-1 rounded-full text-xs font-black bg-gray-200 text-gray-500">
+            2️⃣ 选华语意思
+          </div>
+          <span id="arrowStep3" class="text-gray-400 font-black">➔</span>
+          <div id="pillStep3" class="px-3 py-1 rounded-full text-xs font-black bg-gray-200 text-gray-500">
+            3️⃣ 找 Kata Dasar 词根
+          </div>
+        </div>
+
+        <!-- 5秒强制读题提示横幅 -->
+        <div id="readWaitBanner" class="bg-amber-50 border-2 border-amber-300 rounded-2xl px-4 py-2.5 mb-4 text-center">
+          <span id="readWaitText" class="text-xs sm:text-sm font-black text-amber-800">
+            👀 请先仔细阅读下方句子与华语提示，5 秒后按钮自动解锁并开始 20 秒计时！
+          </span>
+        </div>
+
+        <!-- 挖空句子展示框（较难字旁附有华语括弧注释） -->
+        <div class="bg-sky-50/90 border-2 border-sky-200 rounded-3xl p-4 sm:p-6 mb-5 text-center">
+          <div class="text-xs font-bold text-indigo-600 mb-2">💡 括弧内为较难马来文字的华语意思，帮助你理解句意</div>
+          <div id="quizSentenceBox" class="text-lg sm:text-2xl font-black text-slate-800 leading-relaxed">
+            Anggota <span class="blank-slot">______</span> saya terdiri daripada (由……组成) empat orang.
+          </div>
+        </div>
+
+        <!-- 4 个选项按钮区 -->
+        <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- 动态生成选项 -->
+        </div>
+      </div>
+
+      <!-- 底部反馈信息栏 -->
+      <div id="quizFeedbackArea" class="mt-4 pt-3 border-t-2 border-sky-100 text-center min-h-[44px] flex items-center justify-center">
+        <span class="text-xs sm:text-sm font-bold text-gray-500">仔细阅读句子，5 秒后即可作答 ⏱️</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== 3. 通关结算成绩单弹窗 ==================== -->
+  <div id="summaryModal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="panel-card max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center animate-pop">
+      <div class="text-6xl mb-2">🏆🎉🌟</div>
+      <h2 class="text-2xl sm:text-3xl font-black text-sky-950">Tahniah! 闯关完成！</h2>
+      <p id="summaryStageName" class="text-sm font-extrabold text-indigo-700 mt-1">Unit 1: Keluarga Tersayang</p>
+
+      <div class="grid grid-cols-3 gap-3 my-5">
+        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-3">
+          <div class="text-xs font-black text-emerald-700">答对题数</div>
+          <div id="sumRight" class="text-2xl sm:text-3xl font-black text-emerald-600">0</div>
+        </div>
+        <div class="bg-rose-50 border-2 border-rose-300 rounded-2xl p-3">
+          <div class="text-xs font-black text-rose-700">答错题数</div>
+          <div id="sumWrong" class="text-2xl sm:text-3xl font-black text-rose-600">0</div>
+        </div>
+        <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-3">
+          <div class="text-xs font-black text-sky-700">总得分率</div>
+          <div id="sumRate" class="text-2xl sm:text-3xl font-black text-sky-600">0%</div>
+        </div>
+      </div>
+
+      <!-- 逐题对错回顾 -->
+      <div class="text-left mb-5">
+        <div class="text-xs font-black text-gray-600 mb-1.5">📋 答题记录回顾：</div>
+        <div id="sumReviewList" class="max-h-48 overflow-y-auto space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="retryCurrentStage()" class="btn-3d bg-emerald-500 border-2 border-emerald-700 shadow-[0_4px_0_#047857] text-white font-black py-3 px-6 rounded-2xl text-sm">
+          🔄 再挑战一次本关
+        </button>
+        <button onclick="returnToMenu()" class="btn-3d bg-sky-500 border-2 border-sky-700 shadow-[0_4px_0_#0369A1] text-white font-black py-3 px-6 rounded-2xl text-sm">
+          🏠 返回选择其他关卡
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 完整 JavaScript 数据与游戏引擎 (无任何语音读音) ==================== -->
+  <script>
+    // =========================================================================
+    // 1. Tahun 3A Unit 1: Keluarga Tersayang 全部 30 个课本生词数据 (ms 01 - 05)
+    // =========================================================================
+    const BM_UNIT1_DATA = [
+      // --- 第 1 关：第 1 - 10 题 (ms 01 - 02) ---
+      {
+        id: 1, set: "set1",
+        word: "keluarga", syllable: "(ke/luar/ga)", pos: "Kata Nama 名词",
+        meaning: "家庭",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "谐音联想：ke-luar-ga 读起来像“快乐一家”，有爸爸妈妈和孩子的快乐一家就是【家庭】！",
+        sentenceHTML: "Anggota <span class='blank-slot'>______</span> saya terdiri daripada (由……组成) empat orang.",
+        enOptions: ["keluarga", "anggota", "cuti", "piano"],
+        zhOptions: ["家庭", "成员", "假期", "钢琴"]
+      },
+      {
+        id: 2, set: "set1",
+        word: "tersayang", syllable: "(ter/sa/yang)", pos: "Kata Adjektif 形容词",
+        meaning: "最爱的",
+        kataDasar: "sayang", rootOptions: ["sayang", "yang", "saya", "ter"],
+        relation: "Sinonim (同义词): tercinta",
+        memoryTip: "词根拆解法：sayang 是“爱”，加上前缀 ter-（最……），合起来就是“最爱的”！",
+        sentenceHTML: "Si Putih kucing <span class='blank-slot'>______</span> saya.",
+        enOptions: ["tersayang", "bangga", "kasih", "cuti"],
+        zhOptions: ["最爱的", "光荣", "宠爱", "假期"]
+      },
+      {
+        id: 3, set: "set1",
+        word: "anggota", syllable: "(ang/go/ta)", pos: "Kata Nama 名词",
+        meaning: "成员",
+        kataDasar: null, rootOptions: null,
+        relation: "Sinonim / 关联词: ahli",
+        memoryTip: "词组记忆法：常常和 keluarga 连用成 anggota keluarga（家庭成员），一个家庭里的每个人就是【成员】。",
+        sentenceHTML: "Jia Jia mempunyai (拥有) enam orang <span class='blank-slot'>______</span> keluarga.",
+        enOptions: ["anggota", "keluarga", "aktiviti", "piano"],
+        zhOptions: ["成员", "家庭", "活动", "钢琴"]
+      },
+      {
+        id: 4, set: "set1",
+        word: "anak sulung", syllable: "(a/nak su/lung)", pos: "Simpulan Bahasa 成语",
+        meaning: "长子 / 长女",
+        kataDasar: null, rootOptions: null,
+        relation: "Antonim (反义词): anak bongsu (幼子/幼女)",
+        memoryTip: "对比记忆法：anak 是孩子，sulung 谐音“首领”，家里排第一、像小首领的孩子就是大哥大姐【长子/长女】！",
+        sentenceHTML: "Saya ialah <span class='blank-slot'>______</span> daripada tiga orang adik-beradik (兄弟姐妹).",
+        enOptions: ["anak sulung", "anak bongsu", "anak emas", "ambil hati"],
+        zhOptions: ["长子 / 长女", "幼子 / 幼女", "受宠爱的孩子", "讨人欢心"]
+      },
+      {
+        id: 5, set: "set1",
+        word: "anak bongsu", syllable: "(a/nak bong/su)", pos: "Simpulan Bahasa 成语",
+        meaning: "幼子 / 幼女",
+        kataDasar: null, rootOptions: null,
+        relation: "Antonim (反义词): anak sulung (长子/长女)",
+        memoryTip: "生活联想：bongsu 读起来像“帮手/小宝宝”，家里最小、大家都疼爱的小弟弟小妹妹就是【幼子/幼女】。",
+        sentenceHTML: "Midah merupakan (是) <span class='blank-slot'>______</span> dalam keluarganya.",
+        enOptions: ["anak bongsu", "anak sulung", "ada bakat", "ambil berat"],
+        zhOptions: ["幼子 / 幼女", "长子 / 长女", "有天分", "关注"]
+      },
+      {
+        id: 6, set: "set1",
+        word: "menjaga", syllable: "(men/ja/ga)", pos: "Kata Kerja 动词",
+        meaning: "照顾",
+        kataDasar: "jaga", rootOptions: ["jaga", "menja", "gaja", "jagam"],
+        relation: null,
+        memoryTip: "生活常见词：爸爸妈妈每天在家里 jaga（看顾）我们，加上前缀 men- 变成 menjaga，意思就是【照顾】。",
+        sentenceHTML: "Puan May <span class='blank-slot'>______</span> keluarganya dengan baik (妥善地).",
+        enOptions: ["menjaga", "memilih", "membina", "menanam"],
+        zhOptions: ["照顾", "挑选", "建造", "栽种"]
+      },
+      {
+        id: 7, set: "set1",
+        word: "kasih", syllable: "(ka/sih)", pos: "Kata Adjektif 形容词",
+        meaning: "宠爱",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "词组联想：我们常说 terima kasih（谢谢），因为别人对你有【宠爱/关怀】；kasih ibu 就是“母爱/妈妈的宠爱”。",
+        sentenceHTML: "<span class='blank-slot'>______</span> ibu tidak pernah (从未) berubah (改变) terhadap (对) anak mereka.",
+        enOptions: ["Kasih", "Cuti", "Bangga", "Piano"],
+        zhOptions: ["宠爱", "假期", "光荣", "钢琴"]
+      },
+      {
+        id: 8, set: "set1",
+        word: "kedai buku", syllable: "(ke/dai bu/ku)", pos: "Kata Majmuk 合成词",
+        meaning: "书店",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "合成词相加：kedai = 商店，buku = 书本。卖书本的商店（kedai + buku）合起来就是【书店】！",
+        sentenceHTML: "Suzan membeli (买) beberapa buah buku cerita di <span class='blank-slot'>______</span>.",
+        enOptions: ["kedai buku", "buku cerita", "hujung minggu", "pokok renek"],
+        zhOptions: ["书店", "故事书", "周末", "灌木"]
+      },
+      {
+        id: 9, set: "set1",
+        word: "memilih", syllable: "(me/mi/lih)", pos: "Kata Kerja 动词",
+        meaning: "挑选",
+        kataDasar: "pilih", rootOptions: ["pilih", "milih", "memi", "pili"],
+        relation: null,
+        memoryTip: "词根记忆：买菜时要 pilih（选一选）新鲜的，p 遇到前缀 me- 变身成 memilih，就是【挑选】！",
+        sentenceHTML: "Puan Lim sedang <span class='blank-slot'>______</span> sayur yang segar (新鲜的) di gerai (摊位) sayur itu.",
+        enOptions: ["memilih", "membela", "membina", "menjaga"],
+        zhOptions: ["挑选", "饲养", "建造", "照顾"]
+      },
+      {
+        id: 10, set: "set1",
+        word: "buku cerita", syllable: "(bu/ku ce/ri/ta)", pos: "Kata Majmuk 合成词",
+        meaning: "故事书",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "合成词相加：buku = 书，cerita = 故事。合起来 buku cerita 就是小朋友最喜欢看的【故事书】！",
+        sentenceHTML: "Yong Han sedang membacakan (读给……听) adiknya <span class='blank-slot'>______</span>.",
+        enOptions: ["buku cerita", "kedai buku", "pokok renek", "hujung minggu"],
+        zhOptions: ["故事书", "书店", "灌木", "周末"]
+      },
+
+      // --- 第 2 关：第 11 - 20 题 (ms 02 - 04) ---
+      {
+        id: 11, set: "set2",
+        word: "membacakan", syllable: "(mem/ba/ca/kan)", pos: "Kata Kerja 动词",
+        meaning: "读给某人听",
+        kataDasar: "baca", rootOptions: ["baca", "bacakan", "memba", "caka"],
+        relation: null,
+        memoryTip: "词缀秘诀：baca 是“读”，加上 mem-...-kan 表示“为别人做这个动作”，所以 membacakan 就是【读给某人听】！",
+        sentenceHTML: "Kakak <span class='blank-slot'>______</span> nenek surat (信) itu.",
+        enOptions: ["membacakan", "menghiburkan", "melakukan", "menanam"],
+        zhOptions: ["读给某人听", "娱乐", "进行", "栽种"]
+      },
+      {
+        id: 12, set: "set2",
+        word: "melakukan", syllable: "(me/la/ku/kan)", pos: "Kata Kerja 动词",
+        meaning: "进行",
+        kataDasar: "laku", rootOptions: ["laku", "kukan", "mela", "lakuk"],
+        relation: null,
+        memoryTip: "词根记忆：laku 有“行动/做”的意思，加上 me-...-kan 变成 melakukan，常搭配 senaman（运动），意为【进行】。",
+        sentenceHTML: "Murid-murid <span class='blank-slot'>______</span> senaman (体操/运动) bersama-sama (一起).",
+        enOptions: ["melakukan", "membacakan", "berkebun", "membela"],
+        zhOptions: ["进行", "读给某人听", "做园艺工作", "饲养"]
+      },
+      {
+        id: 13, set: "set2",
+        word: "aktiviti", syllable: "(ak/ti/vi/ti)", pos: "Kata Nama 名词",
+        meaning: "活动",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "英文谐音法：aktiviti 读音和英文的 activity 一模一样，意思就是【活动】！",
+        sentenceHTML: "Kami menjalankan (进行) <span class='blank-slot'>______</span> bersukan (做运动) di taman pada masa lapang (空闲时间).",
+        enOptions: ["aktiviti", "cuti", "piano", "keluarga"],
+        zhOptions: ["活动", "假期", "钢琴", "家庭"]
+      },
+      {
+        id: 14, set: "set2",
+        word: "hujung minggu", syllable: "(hu/jung ming/gu)", pos: "Frasa Nama 名词短语",
+        meaning: "周末",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "词义拆解：hujung = 末端/尽头，minggu = 星期。一个星期的最后两天（星期六和星期日）就是【周末】！",
+        sentenceHTML: "Ayah membawa kami melawat ke (参观) Zoo Negara pada <span class='blank-slot'>______</span>.",
+        enOptions: ["hujung minggu", "kedai buku", "ambil berat", "ada bakat"],
+        zhOptions: ["周末", "书店", "关注", "有天分"]
+      },
+      {
+        id: 15, set: "set2",
+        word: "cuti", syllable: "(cu/ti)", pos: "Kata Nama 名词",
+        meaning: "假期",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "校园日常词：学校放假叫 cuti sekolah，不用上课、可以去野餐的日子就是【假期】！",
+        sentenceHTML: "Bapa mengambil <span class='blank-slot'>______</span> untuk membawa keluarganya berkelah (野餐) di tepi sungai (河边).",
+        enOptions: ["cuti", "piano", "anggota", "kasih"],
+        zhOptions: ["假期", "钢琴", "成员", "宠爱"]
+      },
+      {
+        id: 16, set: "set2",
+        word: "anak emas", syllable: "(a/nak e/mas)", pos: "Simpulan Bahasa 成语",
+        meaning: "受宠爱的孩子",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "成语画面法：anak = 孩子，emas = 黄金。被父母当成“黄金宝贝”一样捧在手心的孩子，就是【受宠爱的孩子】！",
+        sentenceHTML: "Wei Meng merupakan <span class='blank-slot'>______</span> dalam keluarganya.",
+        enOptions: ["anak emas", "anak sulung", "ambil hati", "ada bakat"],
+        zhOptions: ["受宠爱的孩子", "长子 / 长女", "讨人欢心", "有天分"]
+      },
+      {
+        id: 17, set: "set2",
+        word: "bernyanyi", syllable: "(ber/nya/nyi)", pos: "Kata Kerja 动词",
+        meaning: "唱歌",
+        kataDasar: "nyanyi", rootOptions: ["nyanyi", "bernya", "nyany", "anyi"],
+        relation: null,
+        memoryTip: "词根联想：歌手（penyanyi）在台上张开嘴巴 nyanyi，加上前缀 ber- 变成 bernyanyi，就是【唱歌】！",
+        sentenceHTML: "Penyanyi (歌手) itu sedang <span class='blank-slot'>______</span> di atas pentas (舞台).",
+        enOptions: ["bernyanyi", "berkebun", "menanam", "memilih"],
+        zhOptions: ["唱歌", "做园艺工作", "栽种", "挑选"]
+      },
+      {
+        id: 18, set: "set2",
+        word: "ada bakat", syllable: "(a/da ba/kat)", pos: "Simpulan Bahasa 成语",
+        meaning: "有天分",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "拆词法：ada = 有，bakat = 才华/天赋。合起来 ada bakat 就是天生很会做某件事，即【有天分】！",
+        sentenceHTML: "Kok Guang <span class='blank-slot'>______</span> dalam bermain gitar (弹吉他).",
+        enOptions: ["ada bakat", "ambil berat", "ambil hati", "anak emas"],
+        zhOptions: ["有天分", "关注", "讨人欢心", "受宠爱的孩子"]
+      },
+      {
+        id: 19, set: "set2",
+        word: "ambil berat", syllable: "(am/bil be/rat)", pos: "Simpulan Bahasa 成语",
+        meaning: "关注",
+        kataDasar: null, rootOptions: null,
+        relation: "Antonim (反义词): membiarkan (放任/不管)",
+        memoryTip: "成语画面法：ambil = 拿，berat = 重。把你的事情看得很“重”放在心上，就是【关注/关心】！",
+        sentenceHTML: "Ibu bapa perlu (必须) <span class='blank-slot'>______</span> tentang (关于) pelajaran (学业) anak-anak.",
+        enOptions: ["ambil berat", "ambil hati", "ada bakat", "anak bongsu"],
+        zhOptions: ["关注", "讨人欢心", "有天分", "幼子 / 幼女"]
+      },
+      {
+        id: 20, set: "set2",
+        word: "piano", syllable: "(pia/no)", pos: "Kata Nama 名词",
+        meaning: "钢琴",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "英文同形词：马来文 piano 和英文 piano 拼写完全一样，黑白琴键弹奏的乐器就是【钢琴】！",
+        sentenceHTML: "Yee Chun menghadiri (出席/上) kelas <span class='blank-slot'>______</span> pada setiap hari Ahad.",
+        enOptions: ["piano", "cuti", "aktiviti", "keluarga"],
+        zhOptions: ["钢琴", "假期", "活动", "家庭"]
+      },
+
+      // --- 第 3 关：第 21 - 30 题 (ms 04 - 05) ---
+      {
+        id: 21, set: "set3",
+        word: "bersungguh-sungguh", syllable: "(ber/sung/guh-sung/guh)", pos: "Kata Ganda 重叠词",
+        meaning: "认真地",
+        kataDasar: "sungguh", rootOptions: ["sungguh", "bersung", "sungguh-sung", "guh"],
+        relation: null,
+        memoryTip: "重叠词记忆法：sungguh 是“真的/确实”，重复两次变成 bersungguh-sungguh，表示非常用心、全神贯注，就是【认真地】！",
+        sentenceHTML: "Swee Ling belajar dengan <span class='blank-slot'>______</span>.",
+        enOptions: ["bersungguh-sungguh", "berwarna-warni", "tersayang", "bangga"],
+        zhOptions: ["认真地", "五颜六色", "最爱的", "光荣"]
+      },
+      {
+        id: 22, set: "set3",
+        word: "ambil hati", syllable: "(am/bil ha/ti)", pos: "Simpulan Bahasa 成语",
+        meaning: "讨人欢心",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "成语画面法：ambil = 拿/赢得，hati = 心。送花给妈妈、赢得妈妈的心，让妈妈开心，就是【讨人欢心】！",
+        sentenceHTML: "Mei Mei pandai (善于) <span class='blank-slot'>______</span> ibunya.",
+        enOptions: ["ambil hati", "ambil berat", "ada bakat", "anak emas"],
+        zhOptions: ["讨人欢心", "关注", "有天分", "受宠爱的孩子"]
+      },
+      {
+        id: 23, set: "set3",
+        word: "menghiburkan", syllable: "(meng/hi/bur/kan)", pos: "Kata Kerja 动词",
+        meaning: "娱乐",
+        kataDasar: "hibur", rootOptions: ["hibur", "hiburkan", "menghi", "burkan"],
+        relation: null,
+        memoryTip: "词根记忆：hibur 是“开心/消遣”（电视娱乐节目叫 hiburan），小丑表演逗大家开心就是【娱乐】！",
+        sentenceHTML: "Telatah (滑稽举止) badut (小丑) itu <span class='blank-slot'>______</span> kanak-kanak.",
+        enOptions: ["menghiburkan", "membacakan", "melakukan", "memilih"],
+        zhOptions: ["娱乐", "读给某人听", "进行", "挑选"]
+      },
+      {
+        id: 24, set: "set3",
+        word: "bangga", syllable: "(bang/ga)", pos: "Kata Adjektif 形容词",
+        meaning: "光荣",
+        kataDasar: null, rootOptions: null,
+        relation: "Sinonim: megah | Antonim: malu (羞愧)",
+        memoryTip: "谐音联想：bangga 读起来像“棒啊！”，孩子考第一名，爸爸夸奖“真棒啊！”，心里感到非常自豪【光荣】！",
+        sentenceHTML: "Ayah berasa <span class='blank-slot'>______</span> atas kejayaan (成功) anaknya dalam pelajaran.",
+        enOptions: ["bangga", "kasih", "tersayang", "cuti"],
+        zhOptions: ["光荣", "宠爱", "最爱的", "假期"]
+      },
+      {
+        id: 25, set: "set3",
+        word: "berkebun", syllable: "(ber/ke/bun)", pos: "Kata Kerja 动词",
+        meaning: "做园艺工作",
+        kataDasar: "kebun", rootOptions: ["kebun", "berke", "bun", "keb"],
+        relation: null,
+        memoryTip: "词根联想：kebun 是“菜园/花园”，在花园里种花、浇水、修剪树枝，合起来 berkebun 就是【做园艺工作】！",
+        sentenceHTML: "Puan Tan suka <span class='blank-slot'>______</span> pada waktu pagi.",
+        enOptions: ["berkebun", "bernyanyi", "membina", "membela"],
+        zhOptions: ["做园艺工作", "唱歌", "建造", "饲养"]
+      },
+      {
+        id: 26, set: "set3",
+        word: "membina", syllable: "(mem/bi/na)", pos: "Kata Kerja 动词",
+        meaning: "建造",
+        kataDasar: "bina", rootOptions: ["bina", "membi", "nabi", "inab"],
+        relation: null,
+        memoryTip: "词根记忆：bina 是“建/筑”，村民们一起用砖块和木头搭起候车亭（membina），意思就是【建造】！",
+        sentenceHTML: "Penduduk (居民) kampung Sri Sentosa bekerjasama (合作) <span class='blank-slot'>______</span> sebuah pondok bas (巴士候车亭).",
+        enOptions: ["membina", "membela", "menanam", "menjaga"],
+        zhOptions: ["建造", "饲养", "栽种", "照顾"]
+      },
+      {
+        id: 27, set: "set3",
+        word: "pokok renek", syllable: "(po/kok re/nek)", pos: "Frasa Nama 名词短语",
+        meaning: "灌木",
+        kataDasar: null, rootOptions: null,
+        relation: null,
+        memoryTip: "词义拆解：pokok = 树，renek = 矮小的。长得矮矮、枝叶茂密的小树丛就是【灌木】！",
+        sentenceHTML: "<span class='blank-slot'>______</span> tumbuh (生长) liar (野生地) di belakang rumah terbiar (荒废的) itu.",
+        enOptions: ["Pokok renek", "Buku cerita", "Kedai buku", "Hujung minggu"],
+        zhOptions: ["灌木", "故事书", "书店", "周末"]
+      },
+      {
+        id: 28, set: "set3",
+        word: "membela", syllable: "(mem/be/la)", pos: "Kata Kerja 动词",
+        meaning: "饲养",
+        kataDasar: "bela", rootOptions: ["bela", "membe", "elab", "bel"],
+        relation: "Sinonim (同义词): memelihara",
+        memoryTip: "动作联想：爷爷在农场里喂养小鸭子、照顾动物长大，membela（同义词 memelihara）就是【饲养】！",
+        sentenceHTML: "Datuk Aman <span class='blank-slot'>______</span> beberapa ekor itik (鸭子).",
+        enOptions: ["membela", "membina", "menanam", "memilih"],
+        zhOptions: ["饲养", "建造", "栽种", "挑选"]
+      },
+      {
+        id: 29, set: "set3",
+        word: "menanam", syllable: "(me/na/nam)", pos: "Kata Kerja 动词",
+        meaning: "栽种",
+        kataDasar: "tanam", rootOptions: ["tanam", "nanam", "mena", "anam"],
+        relation: null,
+        memoryTip: "词根变音记法：词根 tanam（种），字母 t 遇到前缀 me- 变身成 n，变成 menanam，意思就是【栽种】花草！",
+        sentenceHTML: "Puan Aida mengisi masa lapangnya (打发空闲时间) dengan <span class='blank-slot'>______</span> pokok bunga di halaman rumah (院子).",
+        enOptions: ["menanam", "membela", "membina", "menjaga"],
+        zhOptions: ["栽种", "饲养", "建造", "照顾"]
+      },
+      {
+        id: 30, set: "set3",
+        word: "berwarna-warni", syllable: "(ber/war/na-war/ni)", pos: "Kata Ganda 重叠词",
+        meaning: "五颜六色",
+        kataDasar: "warna", rootOptions: ["warna", "warni", "berwar", "warna-warni"],
+        relation: null,
+        memoryTip: "重叠词记忆法：warna 是“颜色”，叠成 berwarna-warni 表示有各种各样的颜色，就是【五颜六色】！",
+        sentenceHTML: "Belon (气球) yang <span class='blank-slot'>______</span> menarik perhatian (吸引注意) kanak-kanak.",
+        enOptions: ["berwarna-warni", "bersungguh-sungguh", "tersayang", "bangga"],
+        zhOptions: ["五颜六色", "认真地", "最爱的", "光荣"]
+      }
+    ];
+
+    // =========================================================================
+    // 2. 游戏状态变量
+    // =========================================================================
+    let currentStage = "";
+    let stageLabel = "";
+    let activeCards = [];
+    let currentCardIdx = 0;
+    let learnedCardsSet = new Set();
+    let cardLockTimer = null;
+    let cardWaitSeconds = 5;
+
+    let activeQuizList = [];
+    let currentQuizIdx = 0;
+    let currentStep = 1; // 1 = 马来文填空, 2 = 华语意思, 3 = Kata Dasar词根 (若有)
+    let isReadingWait = true;
+    let phaseTimer = null;
+    let timeLeft = 5;
+    let countRight = 0;
+    let countWrong = 0;
+    let reviewLog = [];
+
+    // =========================================================================
+    // 3. Web Audio API 背景音乐 + 倒计时快结束紧张音效引擎 (纯纯音乐，无TTS读音)
+    // =========================================================================
+    let audioCtx = null;
+    let bgmOn = true;
+    let bgmTension = false;
+    let bgmTimer = null;
+    let melodyPos = 0;
+
+    // 轻松愉快的马林巴琴旋律
+    const CALM_NOTES = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 698.46, 659.25, 783.99, 1046.50, 783.99, 587.33, 493.88, 523.25, 0];
+    // 倒计时最后 6 秒紧张心跳加速节奏
+    const TENSION_NOTES = [440.00, 466.16, 440.00, 466.16, 523.25, 554.37, 523.25, 554.37];
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AC();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleBGM() {
+      initAudio();
+      bgmOn = !bgmOn;
+      const btn = document.getElementById("bgmBtn");
+      const icon = document.getElementById("bgmIcon");
+      const txt = document.getElementById("bgmText");
+
+      if (bgmOn) {
+        icon.textContent = "🎵";
+        txt.textContent = "背景音乐开";
+        btn.classList.replace("bg-gray-200", "bg-amber-100");
+        runBGMLoop();
+      } else {
+        icon.textContent = "🔇";
+        txt.textContent = "背景音乐关";
+        btn.classList.replace("bg-amber-100", "bg-gray-200");
+        clearTimeout(bgmTimer);
+      }
+    }
+
+    function setBGMTension(isUrgent) {
+      if (bgmTension === isUrgent) return;
+      bgmTension = isUrgent;
+      melodyPos = 0;
+      if (bgmOn) {
+        clearTimeout(bgmTimer);
+        runBGMLoop();
+      }
+    }
+
+    function runBGMLoop() {
+      if (!bgmOn) return;
+      try {
+        initAudio();
+        const scale = bgmTension ? TENSION_NOTES : CALM_NOTES;
+        const freq = scale[melodyPos % scale.length];
+        melodyPos++;
+        const interval = bgmTension ? 150 : 330;
+
+        if (freq > 0) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = bgmTension ? "sawtooth" : "triangle";
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(bgmTension ? 0.055 : 0.038, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (interval / 1000) * 0.88);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + (interval / 1000) * 0.9);
+        }
+        bgmTimer = setTimeout(runBGMLoop, interval);
+      } catch (e) {}
+    }
+
+    function playFeedbackTone(kind) {
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (kind === "step_ok") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(783.99, now + 0.08);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        } else if (kind === "all_ok") {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.09);
+          osc.frequency.setValueAtTime(783.99, now + 0.18);
+          osc.frequency.setValueAtTime(1046.50, now + 0.27);
+          gain.gain.setValueAtTime(0.16, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+          osc.start(now);
+          osc.stop(now + 0.48);
+        } else if (kind === "wrong") {
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(210, now);
+          osc.frequency.linearRampToValueAtTime(135, now + 0.34);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        } else if (kind === "unlock") {
+          osc.type = "triangle";
+          [523.25, 659.25, 783.99, 1046.50].forEach((f, idx) => osc.frequency.setValueAtTime(f, now + idx * 0.08));
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        }
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 4. 关卡启动与辅助工具
+    // =========================================================================
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function formatChineseParentheses(htmlStr) {
+      // 把例句或题目里的 (华语解释) 突出成淡紫蓝色提示胶囊
+      return htmlStr.replace(/\(([^()]+)\)/g, `<span class="hint-cn">($1)</span>`);
+    }
+
+    function startStage(stageKey) {
+      currentStage = stageKey;
+      initAudio();
+      if (bgmOn) {
+        clearTimeout(bgmTimer);
+        runBGMLoop();
+      }
+
+      if (stageKey === "set1") {
+        stageLabel = "第 1 关：家庭成员与书店 (第 1–10 题)";
+        activeCards = BM_UNIT1_DATA.filter(item => item.set === "set1");
+      } else if (stageKey === "set2") {
+        stageLabel = "第 2 关：周末活动与才艺 (第 11–20 题)";
+        activeCards = BM_UNIT1_DATA.filter(item => item.set === "set2");
+      } else if (stageKey === "set3") {
+        stageLabel = "第 3 关：认真学习与园艺 (第 21–30 题)";
+        activeCards = BM_UNIT1_DATA.filter(item => item.set === "set3");
+      } else if (stageKey === "root_focus") {
+        stageLabel = "Kata Dasar 词根专项挑战 (13 题)";
+        activeCards = BM_UNIT1_DATA.filter(item => item.kataDasar !== null);
+      } else {
+        stageLabel = "Unit 1: Keluarga Tersayang 全套 30 词总挑战";
+        activeCards = [...BM_UNIT1_DATA];
+      }
+
+      activeQuizList = shuffleArray(activeCards);
+      currentCardIdx = 0;
+      learnedCardsSet.clear();
+      currentQuizIdx = 0;
+      countRight = 0;
+      countWrong = 0;
+      reviewLog = [];
+
+      document.getElementById("scoreRight").textContent = "0";
+      document.getElementById("scoreWrong").textContent = "0";
+
+      document.getElementById("menuScreen").classList.add("hidden");
+      document.getElementById("summaryModal").classList.add("hidden");
+      document.getElementById("gameWorkspace").classList.remove("hidden");
+      document.getElementById("homeBtn").classList.remove("hidden");
+
+      // 重新锁定右侧测验面板，禁止跳过 Flashcard
+      const lockCover = document.getElementById("quizLockCover");
+      lockCover.classList.remove("hidden", "opacity-0", "pointer-events-none");
+      document.getElementById("fcUnlockedHint").classList.add("hidden");
+
+      updateFlashcardProgressUI();
+      renderFlashcard(0);
+    }
+
+    function returnToMenu() {
+      clearInterval(cardLockTimer);
+      clearInterval(phaseTimer);
+      setBGMTension(false);
+      document.getElementById("gameWorkspace").classList.add("hidden");
+      document.getElementById("summaryModal").classList.add("hidden");
+      document.getElementById("homeBtn").classList.add("hidden");
+      document.getElementById("menuScreen").classList.remove("hidden");
+    }
+
+    function retryCurrentStage() {
+      startStage(currentStage);
+    }
+
+    // =========================================================================
+    // 5. 左侧 Flashcard 逻辑 (每张强制 5 秒精读，无语音读音)
+    // =========================================================================
+    function renderFlashcard(idx) {
+      const item = activeCards[idx];
+      const total = activeCards.length;
+
+      document.getElementById("fcCounterBadge").textContent = `${idx + 1} / ${total}`;
+      document.getElementById("fcNumTag").textContent = `#${item.id}`;
+      document.getElementById("fcPosTag").textContent = item.pos;
+      document.getElementById("fcMalayWord").textContent = item.word;
+      document.getElementById("fcSyllable").textContent = `音节拆分：${item.syllable}`;
+      document.getElementById("fcChineseMeaning").textContent = item.meaning;
+      document.getElementById("fcMemoryTip").textContent = item.memoryTip;
+
+      const cardBox = document.getElementById("flashcardCard");
+      const rootVal = document.getElementById("fcRootValue");
+      if (item.kataDasar) {
+        cardBox.classList.add("has-root");
+        rootVal.textContent = `${item.kataDasar}（有词缀/重叠，测验会考哦！）`;
+        rootVal.className = "font-black text-purple-700";
+      } else {
+        cardBox.classList.remove("has-root");
+        rootVal.textContent = "无词缀 (Kata Tunggal / 成语短语)";
+        rootVal.className = "font-bold text-gray-600";
+      }
+
+      const relBox = document.getElementById("fcRelBox");
+      if (item.relation) {
+        relBox.textContent = `📌 ${item.relation}`;
+        relBox.classList.remove("hidden");
+      } else {
+        relBox.classList.add("hidden");
+      }
+
+      // 将课本例句中的填空处填入加粗原词，并保留华语括弧注释
+      const completedSentence = item.sentenceHTML.replace(
+        "<span class='blank-slot'>______</span>",
+        `<span class="text-sky-700 underline decoration-wavy font-black px-1">${item.word}</span>`
+      );
+      document.getElementById("fcSentence").innerHTML = formatChineseParentheses(completedSentence);
+
+      document.getElementById("fcPrevBtn").disabled = (idx === 0);
+
+      // 5 秒强制计时控制
+      clearInterval(cardLockTimer);
+      const nextBtn = document.getElementById("fcNextBtn");
+      const nextLabel = document.getElementById("fcNextLabel");
+
+      if (learnedCardsSet.has(idx)) {
+        nextBtn.disabled = false;
+        nextLabel.textContent = (idx === total - 1) ? "✅ 全部看完！去右边闯关" : "下一张 ➡️";
+      } else {
+        cardWaitSeconds = 5;
+        nextBtn.disabled = true;
+        nextLabel.textContent = `⏳ 认真记忆中 (${cardWaitSeconds}s)`;
+
+        cardLockTimer = setInterval(() => {
+          cardWaitSeconds--;
+          nextLabel.textContent = `⏳ 认真记忆中 (${cardWaitSeconds}s)`;
+          if (cardWaitSeconds <= 0) {
+            clearInterval(cardLockTimer);
+            learnedCardsSet.add(idx);
+            updateFlashcardProgressUI();
+            nextBtn.disabled = false;
+            nextLabel.textContent = (idx === total - 1) ? "✅ 全部看完！解锁右边测验" : "下一张 ➡️";
+          }
+        }, 1000);
+      }
+    }
+
+    function prevFlashcard() {
+      if (currentCardIdx > 0) {
+        currentCardIdx--;
+        renderFlashcard(currentCardIdx);
+      }
+    }
+
+    function nextFlashcard() {
+      if (!learnedCardsSet.has(currentCardIdx)) return;
+      if (currentCardIdx < activeCards.length - 1) {
+        currentCardIdx++;
+        renderFlashcard(currentCardIdx);
+      } else {
+        unlockRightQuiz();
+      }
+    }
+
+    function updateFlashcardProgressUI() {
+      const done = learnedCardsSet.size;
+      const total = activeCards.length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById("fcProgressBar").style.width = `${pct}%`;
+      document.getElementById("lockProgressText").textContent = `${done} / ${total}`;
+    }
+
+    function unlockRightQuiz() {
+      const cover = document.getElementById("quizLockCover");
+      if (!cover.classList.contains("hidden")) {
+        playFeedbackTone("unlock");
+        cover.classList.add("opacity-0", "pointer-events-none");
+        setTimeout(() => cover.classList.add("hidden"), 350);
+        document.getElementById("fcUnlockedHint").classList.remove("hidden");
+        loadQuizQuestion(0);
+      }
+    }
+
+    // =========================================================================
+    // 6. 右侧 Quiz 逻辑 (先等 5 秒读题 -> 再启动 20 秒作答 -> 马来文 -> 华语 -> Kata Dasar)
+    // =========================================================================
+    function loadQuizQuestion(qIdx) {
+      clearInterval(phaseTimer);
+      setBGMTension(false);
+      document.getElementById("quizPanel").classList.remove("tension-border");
+
+      const item = activeQuizList[qIdx];
+      currentStep = 1;
+      isReadingWait = true;
+      timeLeft = 5;
+
+      document.getElementById("qNumDisplay").textContent = qIdx + 1;
+      document.getElementById("qTotalDisplay").textContent = activeQuizList.length;
+
+      // 渲染带华语括弧提示的挖空句子
+      document.getElementById("quizSentenceBox").innerHTML = formatChineseParentheses(item.sentenceHTML);
+
+      // 设置步骤胶囊提示（如果本词没有 Kata Dasar，隐藏第3步胶囊）
+      document.getElementById("pillStep1").className = "px-3 py-1 rounded-full text-xs font-black bg-sky-600 text-white shadow-sm";
+      document.getElementById("pillStep1").textContent = "1️⃣ 选马来文填空";
+      document.getElementById("pillStep2").className = "px-3 py-1 rounded-full text-xs font-black bg-gray-200 text-gray-500";
+      document.getElementById("pillStep2").textContent = "2️⃣ 选华语意思";
+
+      const arrow3 = document.getElementById("arrowStep3");
+      const pill3 = document.getElementById("pillStep3");
+      if (item.kataDasar) {
+        arrow3.classList.remove("hidden");
+        pill3.classList.remove("hidden");
+        pill3.className = "px-3 py-1 rounded-full text-xs font-black bg-gray-200 text-gray-500";
+        pill3.textContent = "3️⃣ 找 Kata Dasar 词根";
+      } else {
+        arrow3.classList.add("hidden");
+        pill3.classList.add("hidden");
+      }
+
+      // 渲染第一步马来文选项，先锁定 5 秒供学生仔细读题
+      renderQuizOptions(shuffleArray(item.enOptions), "bm");
+      setOptionsDisabled(true);
+
+      const banner = document.getElementById("readWaitBanner");
+      const bannerTxt = document.getElementById("readWaitText");
+      banner.className = "bg-amber-50 border-2 border-amber-300 rounded-2xl px-4 py-2.5 mb-4 text-center";
+      bannerTxt.className = "text-xs sm:text-sm font-black text-amber-800";
+      bannerTxt.textContent = "👀 请先仔细阅读句子与括弧提示，5 秒后解锁作答！";
+
+      document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-bold text-amber-700">正在读题倒计时，请先看清楚句子意思哦 👀</span>`;
+
+      // 启动 5 秒强制读题倒计时
+      updateTimerBar(5, 5, "read");
+      phaseTimer = setInterval(() => {
+        timeLeft--;
+        updateTimerBar(timeLeft, 5, "read");
+
+        if (timeLeft <= 0) {
+          clearInterval(phaseTimer);
+          isReadingWait = false;
+          setOptionsDisabled(false);
+
+          banner.className = "bg-emerald-50 border-2 border-emerald-300 rounded-2xl px-4 py-2.5 mb-4 text-center";
+          bannerTxt.className = "text-xs sm:text-sm font-black text-emerald-800";
+          bannerTxt.textContent = "✅ 已解锁！请在 20 秒内依次选出马来文填空与华语意思！";
+          document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-xs sm:text-sm font-bold text-sky-700">第 1 步：请选出正确的马来文字填入空格！</span>`;
+
+          start20SecAnswerCountdown();
+        }
+      }, 1000);
+    }
+
+    function start20SecAnswerCountdown() {
+      clearInterval(phaseTimer);
+      timeLeft = 20;
+      updateTimerBar(20, 20, "answer");
+
+      phaseTimer = setInterval(() => {
+        timeLeft--;
+        updateTimerBar(timeLeft, 20, "answer");
+
+        // 最后 6 秒：背景音乐自动切换为紧张节奏 + 红框脉冲
+        if (timeLeft <= 6 && timeLeft > 0) {
+          setBGMTension(true);
+          document.getElementById("quizPanel").classList.add("tension-border");
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(phaseTimer);
+          setBGMTension(false);
+          document.getElementById("quizPanel").classList.remove("tension-border");
+          const item = activeQuizList[currentQuizIdx];
+          const rootInfo = item.kataDasar ? ` | Kata Dasar: ${item.kataDasar}` : "";
+          completeCurrentQuestion(false, `超过 20 秒未作答 (正解: ${item.word} = ${item.meaning}${rootInfo})`);
+        }
+      }, 1000);
+    }
+
+    function updateTimerBar(current, max, mode) {
+      const pct = Math.max(0, (current / max) * 100);
+      const bar = document.getElementById("timerProgressBar");
+      const valTxt = document.getElementById("timerValueText");
+      const phaseTxt = document.getElementById("timerPhaseLabel");
+
+      bar.style.width = `${pct}%`;
+      valTxt.textContent = `${current}s`;
+
+      if (mode === "read") {
+        bar.className = "h-full bg-amber-400 rounded-full transition-all duration-200";
+        valTxt.className = "text-sm sm:text-base text-amber-700 font-black";
+        phaseTxt.textContent = "👀 仔细读题时间...";
+        phaseTxt.className = "text-amber-700 font-black";
+      } else {
+        if (current <= 6) {
+          bar.className = "h-full bg-rose-600 rounded-full transition-all duration-200";
+          valTxt.className = "text-sm sm:text-base text-rose-600 font-black animate-ping";
+          phaseTxt.textContent = "🚨 时间快到了！快选！";
+          phaseTxt.className = "text-rose-600 font-black";
+        } else if (current <= 12) {
+          bar.className = "h-full bg-amber-500 rounded-full transition-all duration-200";
+          valTxt.className = "text-sm sm:text-base text-amber-700 font-black";
+          phaseTxt.textContent = "⏳ 抓紧时间作答...";
+          phaseTxt.className = "text-amber-700 font-black";
+        } else {
+          bar.className = "h-full bg-emerald-500 rounded-full transition-all duration-200";
+          valTxt.className = "text-sm sm:text-base text-emerald-700 font-black";
+          phaseTxt.textContent = "⏱️ 20秒作答倒计时";
+          phaseTxt.className = "text-emerald-700 font-black";
+        }
+      }
+    }
+
+    function setOptionsDisabled(disabled) {
+      document.querySelectorAll("#quizOptionsGrid button").forEach(btn => {
+        btn.disabled = disabled;
+      });
+    }
+
+    function renderQuizOptions(optionsList, stepKind) {
+      const grid = document.getElementById("quizOptionsGrid");
+      grid.innerHTML = "";
+      const tags = ["A", "B", "C", "D"];
+      const badgeColor = stepKind === "bm" ? "bg-sky-600" : (stepKind === "zh" ? "bg-rose-500" : "bg-purple-600");
+
+      optionsList.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "btn-3d option-btn p-3.5 sm:p-4 rounded-2xl text-left font-black text-base sm:text-lg flex items-center gap-3";
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-xl ${badgeColor} text-white flex items-center justify-center text-sm font-black shrink-0">
+            ${tags[idx]}
+          </span>
+          <span>${optText}</span>
+        `;
+        btn.onclick = () => onOptionClicked(optText);
+        grid.appendChild(btn);
+      });
+    }
+
+    function onOptionClicked(selectedVal) {
+      if (isReadingWait) return;
+      const item = activeQuizList[currentQuizIdx];
+
+      if (currentStep === 1) {
+        // 第 1 步：检查马来文填空
+        if (selectedVal === item.word) {
+          playFeedbackTone("step_ok");
+          const slot = document.querySelector("#quizSentenceBox .blank-slot");
+          if (slot) {
+            slot.textContent = item.word;
+            slot.classList.add("filled");
+          }
+
+          // 进入第 2 步：选华语意思
+          currentStep = 2;
+          document.getElementById("pillStep1").className = "px-3 py-1 rounded-full text-xs font-black bg-emerald-500 text-white";
+          document.getElementById("pillStep1").textContent = `✅ 1. 马来文正确`;
+          document.getElementById("pillStep2").className = "px-3 py-1 rounded-full text-xs font-black bg-rose-600 text-white shadow-sm animate-pop";
+          document.getElementById("pillStep2").textContent = `2️⃣ 快选 "${item.word}" 的华语意思！`;
+
+          document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-sm font-black text-emerald-700">👏 马来文填对了！现在请选出 "${item.word}" 的华语意思！</span>`;
+          renderQuizOptions(shuffleArray(item.zhOptions), "zh");
+        } else {
+          completeCurrentQuestion(false, `马来文选错 (选了 "${selectedVal}"，正解 "${item.word}")`);
+        }
+      } else if (currentStep === 2) {
+        // 第 2 步：检查华语意思
+        if (selectedVal === item.meaning) {
+          if (item.kataDasar) {
+            // 有词根 -> 进入第 3 步：询问 Kata Dasar
+            playFeedbackTone("step_ok");
+            currentStep = 3;
+            document.getElementById("pillStep2").className = "px-3 py-1 rounded-full text-xs font-black bg-emerald-500 text-white";
+            document.getElementById("pillStep2").textContent = `✅ 2. 华语正确 (${item.meaning})`;
+            document.getElementById("pillStep3").className = "px-3 py-1 rounded-full text-xs font-black bg-purple-600 text-white shadow-sm animate-pop";
+            document.getElementById("pillStep3").textContent = `3️⃣ 找出 "${item.word}" 的 Kata Dasar！`;
+
+            document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-sm font-black text-purple-800">🌱 这个字有词缀/重叠！请问 "${item.word}" 的 Kata Dasar (词根) 是哪一个？</span>`;
+            renderQuizOptions(shuffleArray(item.rootOptions), "root");
+          } else {
+            // 无词根 -> 直接完成本题并得分
+            completeCurrentQuestion(true, "完全正确");
+          }
+        } else {
+          completeCurrentQuestion(false, `华语意思选错 (选了 "${selectedVal}"，正解 "${item.meaning}")`);
+        }
+      } else if (currentStep === 3) {
+        // 第 3 步：检查 Kata Dasar 词根
+        if (selectedVal === item.kataDasar) {
+          completeCurrentQuestion(true, `完全正确 (Kata Dasar: ${item.kataDasar})`);
+        } else {
+          completeCurrentQuestion(false, `Kata Dasar 词根选错 (选了 "${selectedVal}"，正解 "${item.kataDasar}")`);
+        }
+      }
+    }
+
+    function completeCurrentQuestion(isCorrect, detailNote) {
+      clearInterval(phaseTimer);
+      setBGMTension(false);
+      document.getElementById("quizPanel").classList.remove("tension-border");
+      setOptionsDisabled(true);
+
+      const item = activeQuizList[currentQuizIdx];
+      const rootSuffix = item.kataDasar ? ` • 词根: ${item.kataDasar}` : "";
+
+      if (isCorrect) {
+        countRight++;
+        playFeedbackTone("all_ok");
+        document.getElementById("scoreRight").textContent = countRight;
+        document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-sm sm:text-base font-black text-emerald-600 animate-pop">🌟 太棒了！完全答对：${item.word} = ${item.meaning}${rootSuffix}</span>`;
+      } else {
+        countWrong++;
+        playFeedbackTone("wrong");
+        document.getElementById("scoreWrong").textContent = countWrong;
+        document.getElementById("quizFeedbackArea").innerHTML = `<span class="text-sm sm:text-base font-black text-rose-600 animate-shake">❌ 答错了！正解：${item.word} (${item.meaning}${rootSuffix})</span>`;
+      }
+
+      reviewLog.push({
+        num: currentQuizIdx + 1,
+        word: item.word,
+        meaning: item.meaning,
+        kataDasar: item.kataDasar,
+        isCorrect,
+        note: detailNote
+      });
+
+      setTimeout(() => {
+        if (currentQuizIdx < activeQuizList.length - 1) {
+          currentQuizIdx++;
+          loadQuizQuestion(currentQuizIdx);
+        } else {
+          showFinalSummary();
+        }
+      }, 1150);
+    }
+
+    // =========================================================================
+    // 7. 通关结算弹窗
+    // =========================================================================
+    function showFinalSummary() {
+      clearInterval(phaseTimer);
+      setBGMTension(false);
+      playFeedbackTone("unlock");
+
+      const total = activeQuizList.length;
+      const pct = Math.round((countRight / total) * 100);
+
+      document.getElementById("summaryStageName").textContent = stageLabel;
+      document.getElementById("sumRight").textContent = `${countRight} 题`;
+      document.getElementById("sumWrong").textContent = `${countWrong} 题`;
+      document.getElementById("sumRate").textContent = `${pct}%`;
+
+      const listBox = document.getElementById("sumReviewList");
+      listBox.innerHTML = "";
+      reviewLog.forEach(entry => {
+        const rootText = entry.kataDasar ? ` [词根: ${entry.kataDasar}]` : "";
+        const row = document.createElement("div");
+        row.className = `p-2 rounded-xl border flex flex-wrap items-center justify-between gap-2 ${
+          entry.isCorrect ? "bg-emerald-50 border-emerald-200 text-emerald-900" : "bg-rose-50 border-rose-200 text-rose-900"
+        }`;
+        row.innerHTML = `
+          <span><strong>第 ${entry.num} 题：</strong>${entry.word} (${entry.meaning})${rootText}</span>
+          <span class="font-black">${entry.isCorrect ? "✅ 正确" : "❌ " + entry.note}</span>
+        `;
+        listBox.appendChild(row);
+      });
+
+      document.getElementById("summaryModal").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
